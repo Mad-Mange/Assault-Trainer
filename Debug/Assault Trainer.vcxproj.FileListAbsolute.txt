@@ -1,2 +1,3 @@
 C:\Users\MadMange\Dropbox\c++ source\Assault Trainer\Debug\Assault Trainer.exe
 C:\Users\MadMange\Dropbox\c++ source\Assault Trainer\Debug\Assault Trainer.pdb
+c:\Users\MadMange\Dropbox\c++ source\Assault-Trainer\Debug\Assault Trainer.exe
