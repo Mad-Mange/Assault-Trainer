@@ -8,13 +8,14 @@ using std::cout;
 using std::endl;
 
 class AbstractEmployee {
-    void AskForPromotion();
+    virtual void AskForPromotion() = 0;
 };
 
-class Employee {
-     string Name;
+class Employee : AbstractEmployee {
      string Company;
      int Age;
+protected:
+    string Name;
 
 public:
     void setName(string name) { Name = name; }
@@ -29,26 +30,66 @@ public:
 
     Employee(string name, string comp, int age) { Name = name; Company = comp; Age = age; }
 
+    void AskForPromotion() {
+        if (Age > 30)
+            cout << Name << " you got promoted!!" << endl;
+        else
+            cout << Name << " sorry no promotion for you..." << endl;
+    }
+
      void presentation() {
          cout << "My name is " << Name << " and working at " << 
              this->Company << " and Im " << this->Age << " old.\n";
      }
+
+     virtual void Work() {
+         cout << Name << " is checking email, task backlog, performing tasks..." << endl;
+     }
+};
+
+class Developer : public Employee {
+public:
+    string FavProgrammingLanguage;
+    Developer(string name, string comp, int age, string favProgrammingLanguage) : Employee(name, comp , age){
+        FavProgrammingLanguage = favProgrammingLanguage;
+    }
+
+    void FixBug() {
+        cout << Name << " fixed bug using " << FavProgrammingLanguage << endl;
+        cout << "Your age is: " << this->getAge() << endl;
+    }
+
+    void Work() {
+        cout << Name << " is writing " << FavProgrammingLanguage << " code!" << endl;
+    }
+};
+
+class Teacher : public Employee {
+public:
+    string Subject;
+    Teacher(string name, string comp, int age, string subject) : Employee(name, comp, age) {
+        Subject = subject;
+    }
+    void PrepareLesson() {
+        cout << Name << " is preparing " << Subject << " lesson." << endl;
+    }
+    void Work() {
+        cout << Name << " is teching " << Subject << " to children" << endl;
+    }
 };
 
 int main(int argc, char** argv)
 {
-    Employee emp = Employee("Mange","Crime AB", 49);
-    Employee emp1 = Employee("Lisa", "El o Vatten", 21);
-    Employee emp3 = Employee("Anders", "Bull & Bång", 35);
+    Employee e = Employee("Sture", "Bygge", 46);
+    Developer d = Developer("Kerstin", "Frukt & Grönt", 76, "Perl");
+    Teacher t = Teacher("Stina","Skolan",31,"Python");
+    
+    Employee* e1 = &d;
+    Employee* e2 = &t;
 
-
-
-    emp.presentation();
-    emp1.presentation();
-    emp3.setName("Bullen");
-    cout << "Hämtar namn med getter!! " << emp3.getName() << endl;
-    emp3.presentation();
-
+    e.Work();
+    e1->Work();
+    e2->Work();
 
     // Get proc id
     const wchar_t* namn = L"Notepad";
